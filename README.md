@@ -2,15 +2,6 @@
 
 # link: https://youtu.be/gW_IIJXU2dc 
 
-#!/usr/bin/python
-######################################
-# Copyright 2009 Max Kubierschky <max@knirz.de>
-# License: GNU General Public License version 2 (See <http://www.gnu.org/licenses/>)
-#
-# This is a little game where you are a little angel that
-# must go back to the sky, avoiding snowflakes.
-######################################
-
 # Import necessary modules from the pygame library
 from pygame import *
 import random, sys
@@ -22,7 +13,7 @@ class Flake(sprite.Sprite):
         self.image = Surface((11, 11))  # Create a surface for the snowflake
         self.rect = self.image.get_rect()  # Get the rectangular boundary of the surface
         
-        # Draw the snowflake shape using lines
+# Draw the snowflake shape using lines
         draw.line(self.image, Color("white"), (5, 0), (5, 10))
         draw.line(self.image, Color("white"), (0, 2), (10, 8))
         draw.line(self.image, Color("white"), (0, 8), (10, 2))
@@ -31,15 +22,15 @@ class Flake(sprite.Sprite):
         flakes.add(self)  # Add the snowflake to the flakes group
 
     def update(self):
-        # Update the snowflake's position
+# Update the snowflake's position
         self.rect.y += self.vy  # Move the snowflake down
         self.rect.x = (self.rect.x + self.vx) % width  # Handle horizontal wrapping
 
-        # Remove the snowflake if it reaches the ground
+# Remove the snowflake if it reaches the ground
         if self.rect.y > height - 50:
             flakes.remove(self)
 
-        # Check for collision with the angel and reduce lives if hit
+# Check for collision with the angel and reduce lives if hit
         if angel.lives > 0 and self.rect.colliderect(angel.rect):
             angel.lives -= 1
             startFloor()
@@ -51,7 +42,7 @@ class Angel(sprite.Sprite):
         self.image = Surface((11, 17))  # Create a surface for the angel
         self.rect = self.image.get_rect()  # Get the rectangular boundary of the surface
         
-        # Draw the angel shape using a polygon and circle
+# Draw the angel shape using a polygon and circle
         poly = ((0, 1), (2, 4), (8, 4), (10, 1), (10, 8), (7, 10), 
                 (10, 16), (0, 16), (3, 10), (0, 8))
         draw.polygon(self.image, Color("white"), poly)
@@ -60,7 +51,7 @@ class Angel(sprite.Sprite):
         self.lives = 3  # Initialize the angel's lives
 
     def update(self):
-        # Handle angel movement based on keyboard input
+# Handle angel movement based on keyboard input
         keys = key.get_pressed()  # Get the current state of the keyboard
         if keys[K_UP]:
             self.rect.y -= 3  # Move up
@@ -71,17 +62,17 @@ class Angel(sprite.Sprite):
         if keys[K_RIGHT] and self.rect.right < width:
             self.rect.x += 3  # Move right
 
-        # Check if the angel reaches the next floor or specific keys are pressed
+# Check if the angel reaches the next floor or specific keys are pressed
         if (keys[K_l] and self.rect.bottom < height) or self.rect.top < 25:
             startFloor(min(floor + 1, len(vxRanges)))
 
 # Initialize game variables
-flakes = sprite.RenderPlain()  # Group to hold snowflake sprites
-init()  # Initialize pygame modules
-width, height = 800, 600  # Set the dimensions of the game window
-window = display.set_mode((width, height))  # Create the game window
-screen = display.get_surface()  # Get the surface of the game window
-fnt = font.Font(None, 24)  # Create a font object for rendering text
+flakes = sprite.RenderPlain() 
+init() 
+width, height = 800, 600  
+window = display.set_mode((width, height))  
+screen = display.get_surface()  
+fnt = font.Font(None, 24)  
 
 # List of multiple-choice questions for the game
 questions = [
